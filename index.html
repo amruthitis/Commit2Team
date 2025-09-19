@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Commit2Team - AI Team Matching</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      background: #0f0f12;
+      color: #f0f0f0;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 20px;
+    }
+
+    .hero { text-align: center; margin-bottom: 40px; }
+    .badge { display: inline-block; padding: 5px 12px; font-size: 0.85rem; background: #1e1e22; border-radius: 20px; color: #bb86fc; margin-bottom: 12px; }
+    h1 { font-size: 2.5rem; color: #fff; }
+    h1 span { color: #bb86fc; }
+    .hero p { color: #bbb; font-size: 1.1rem; margin-top: 10px; }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+      margin: 50px 0;
+      text-align: center;
+    }
+
+    .feature-card {
+      background: #1a1a1d;
+      padding: 25px;
+      border-radius: 12px;
+      transition: transform 0.2s ease;
+    }
+    .feature-card:hover { transform: translateY(-5px); background: #222227; }
+    .feature-card i { font-size: 2rem; color: #bb86fc; margin-bottom: 12px; }
+    .feature-card h3 { margin: 0; font-size: 1.1rem; color: #fff; }
+
+    h2 { margin-top: 40px; color: #e0e0e0; }
+    form { display: flex; flex-direction: column; gap: 12px; margin-top: 15px; }
+    input, button { padding: 12px; border: none; border-radius: 8px; font-size: 1rem; }
+    input { background: #26262a; color: #fff; outline: none; }
+    input::placeholder { color: #888; }
+    button {
+      background: linear-gradient(135deg, #8a2be2, #bb86fc);
+      color: white; font-weight: bold; cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    button:hover { transform: scale(1.05); box-shadow: 0 4px 12px rgba(138, 43, 226, 0.6); }
+
+    #registerResult, #results, #teamResult, #scoreResult {
+      margin-top: 15px; padding: 12px; border-radius: 8px; background: #222227; font-size: 0.95rem;
+    }
+
+    .card {
+      border: 1px solid #333; padding: 15px; margin: 10px 0; border-radius: 10px;
+      background: #1e1e22; transition: transform 0.2s ease;
+    }
+    .card:hover { transform: scale(1.02); background: #27272c; }
+    .card h3 { margin: 0 0 10px; color: #bb86fc; }
+    .highlight { color: #bb86fc; font-weight: bold; }
+
+    .popup {
+      display: none; position: fixed; top: 0; left: 0;
+      width: 100%; height: 100%; background: rgba(0,0,0,0.7);
+      justify-content: center; align-items: center;
+    }
+    .popup-content {
+      background: #1e1e22; padding: 20px; border-radius: 12px;
+      text-align: center; color: #fff; max-width: 400px;
+    }
+    .popup-content button { margin-top: 1rem; background: linear-gradient(135deg, #8a2be2, #bb86fc); }
+
+    .progress-bar-container { width: 100%; background: #333; border-radius: 8px; margin-top: 8px; }
+    .progress-bar {
+      height: 20px; border-radius: 8px; background: linear-gradient(90deg,#8a2be2,#bb86fc); width: 0%;
+      text-align: center; color: white; font-weight: bold; line-height: 20px;
+      transition: width 0.5s ease-in-out;
+    }
+  </style>
+
+  <script src="https://kit.fontawesome.com/a2e0e6ad65.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Hero Section -->
+    <div class="hero">
+      <div class="badge">AI-Powered Team Matching <span class="highlight">Beta Version</span></div>
+      <h1>Build Your Perfect Team with <span>Commit2Team</span></h1>
+      <p>Upload your resume and let AI find the perfect teammates for you based on skills, experience, and domain expertise.</p>
+    </div>
+
+    <!-- Features -->
+    <div class="features">
+      <div class="feature-card"><i class="fas fa-file-alt"></i><h3>Resume Analysis</h3></div>
+      <div class="feature-card"><i class="fas fa-bolt"></i><h3>AI Matching</h3></div>
+      <div class="feature-card"><i class="fas fa-users"></i><h3>Team Building</h3></div>
+      <div class="feature-card"><i class="fas fa-search"></i><h3>Smart Discovery</h3></div>
+    </div>
+
+    <!-- Register -->
+    <h2>Upload Resume</h2>
+    <form id="registerForm">
+      <input type="file" id="resume" required>
+      <input type="text" id="domain" placeholder="Domain Interest" required>
+      <input type="text" id="role" placeholder="Role" required>
+      <input type="text" id="phone" placeholder="Phone Number" required>
+      <button type="submit">Register</button>
+    </form>
+    <div id="registerResult"></div>
+
+    <!-- Find Teammates -->
+    <h2>Find Your Perfect Teammates</h2>
+    <input type="text" id="userId" placeholder="Enter Your User ID">
+    <button id="findBtn">Find Matches</button>
+    <div id="results"></div>
+
+    <!-- Form Team (Moved) -->
+    <h2>Form a Team</h2>
+    <input type="text" id="teamUserIds" placeholder="User IDs, e.g. id1,id2,id3">
+    <button id="teamBtn">Form Team</button>
+    <div id="teamResult"></div>
+
+    <!-- Predict Team Score (Moved) -->
+    <h2>Predict Team Score</h2>
+    <input type="text" id="teamName" placeholder="Enter Team Name">
+    <button id="scoreBtn">Predict Score</button>
+    <div id="scoreResult">
+      <div class="progress-bar-container">
+        <div class="progress-bar" id="teamScoreBar">0%</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Popup -->
+  <div id="popup" class="popup">
+    <div class="popup-content">
+      <h3 id="popupName"></h3>
+      <p>📞 Phone: <span id="popupPhone"></span></p>
+      <button onclick="closePopup()">Close</button>
+    </div>
+  </div>
+
+  <script>
+    const API = "http://127.0.0.1:8000";
+
+    // Register
+    document.getElementById("registerForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData();
+      formData.append("file", document.getElementById("resume").files[0]);
+      formData.append("domain_interest", document.getElementById("domain").value);
+      formData.append("role", document.getElementById("role").value);
+      formData.append("phone", document.getElementById("phone").value);
+
+      const res = await fetch(`${API}/register_resume`, { method: "POST", body: formData });
+      const data = await res.json();
+      document.getElementById("registerResult").innerText = 
+        `✅ Registered! User ID: ${data.user_id}, Skills: ${data.skills.join(", ")}`;
+    });
+
+    // Find Teammates
+    document.getElementById("findBtn").addEventListener("click", async () => {
+      const userId = document.getElementById("userId").value;
+      const res = await fetch(`${API}/find_teammates/${userId}`);
+      const data = await res.json();
+      const resultsDiv = document.getElementById("results");
+      resultsDiv.innerHTML = "";
+
+      if (data.teammates) {
+        const scoreDiv = document.createElement("div");
+        scoreDiv.className = "card";
+        scoreDiv.innerHTML = `<h3>Team Score: ${data.team_score}%</h3>
+          <div class="progress-bar-container">
+            <div class="progress-bar" style="width:${data.team_score}%;">${data.team_score}%</div>
+          </div>`;
+        resultsDiv.appendChild(scoreDiv);
+
+        data.teammates.forEach(match => {
+          const card = document.createElement("div");
+          card.className = "card";
+          card.innerHTML = `
+            <h3>${match.name}</h3>
+            <p><b>Skills:</b> ${match.skills}</p>
+            <p><b>Domain:</b> ${match.domain_interest}</p>
+            <p><b>Role:</b> ${match.role}</p>
+            <p><b>Similarity:</b> ${match.similarity}</p>
+            <button onclick="showPopup('${match.name}', '${match.phone || "Not Shared"}')">Connect</button>
+          `;
+          resultsDiv.appendChild(card);
+        });
+      } else {
+        resultsDiv.innerHTML = `<p>${data.error}</p>`;
+      }
+    });
+
+        function showPopup(name, phone) {
+      document.getElementById("popupName").innerText = name;
+      document.getElementById("popupPhone").innerText = phone;
+      document.getElementById("popup").style.display = "flex";
+    }
+    function closePopup() { document.getElementById("popup").style.display = "none"; }
+  </script>
+</body>
+</html>
