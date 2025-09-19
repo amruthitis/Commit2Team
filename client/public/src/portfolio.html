@@ -16,6 +16,13 @@
       <input type="text" id="name" placeholder="Your Name" required />
       <input type="text" id="year" placeholder="Year (e.g., 1st Year,2nd Year,3rd Year)" required />
       <input type="text" id="college" placeholder="College Name" required />
+      <select id="gender" required>
+        <option value="" disabled selected>Select Gender</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+        <option value="prefer-not-to-say">Prefer not to say</option>
+      </select>
       <select id="skillCategory" required>
         <option value="" disabled selected>Select Skill Category</option>
         <option value="frontend">Frontend Development</option>
@@ -25,7 +32,6 @@
         <option value="mobile">Mobile Development</option>
         <option value="ui-ux">UI/UX Design</option>
       </select>
-      <input type="number" id="rating" placeholder="Rate your skills (1-10)" min="1" max="10" required />
       <p style="font-family: Verdana, Geneva, Tahoma, sans-serif;">Upload your Profile Pic</p>
       <input type="file" id="profilepic" accept="profilepic/jpg">
       <p style="font-family: Verdana, Geneva, Tahoma, sans-serif;">Upload your Resume</p>

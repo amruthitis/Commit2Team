@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+    
 </head>
 <body>
 
@@ -23,7 +24,6 @@
                 <button class="resume-btn" id="resumeBtn">
                     <i class="ri-medal-line"></i>
                     Resume Analyzer
-                    <span>Premium</span>
                 </button>
                 <a href="#" class="profile-icon">
                     <i class="ri-user-fill"></i>
@@ -37,90 +37,68 @@
                 <p>Connect with talented individuals and build winning teams</p>
             </section>
 
+            <section class="filter-section">
+                <div class="filter-container">
+                    <h3><i class="ri-filter-line"></i> Filter Students</h3>
+                    <div class="filter-grid">
+                        <div class="filter-group">
+                            <label for="skillFilter">Skill Category</label>
+                            <select id="skillFilter">
+                                <option value="all">All Skills</option>
+                                <option value="frontend">Frontend Development</option>
+                                <option value="backend">Backend Development</option>
+                                <option value="fullstack">Full-Stack Development</option>
+                                <option value="ai-ml">AI/ML</option>
+                                <option value="mobile">Mobile Development</option>
+                                <option value="ui-ux">UI/UX Design</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label for="genderFilter">Gender</label>
+                            <select id="genderFilter">
+                                <option value="all">All Genders</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                                <option value="prefer-not-to-say">Prefer not to say</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label for="yearFilter">Academic Year</label>
+                            <select id="yearFilter">
+                                <option value="all">All Years</option>
+                                <option value="1st">1st Year</option>
+                                <option value="2nd">2nd Year</option>
+                                <option value="3rd">3rd Year</option>
+                                <option value="4th">4th Year</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label for="collegeFilter">College</label>
+                            <input type="text" id="collegeFilter" placeholder="Search by college name">
+                        </div>
+                    </div>
+                    
+                    <div class="filter-actions">
+                        <button id="applyFilter" class="filter-btn">
+                            <i class="ri-search-line"></i> Apply Filters
+                        </button>
+                        <button id="clearFilter" class="filter-btn secondary">
+                            <i class="ri-refresh-line"></i> Clear Filters
+                        </button>
+                    </div>
+                </div>
+            </section>
+
             <section class="team-cards">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="avatar ac">AC</div>
-                        <div class="info">
-                            <h3>Alex Chen</h3>
-                            <p>Full Stack Developer</p>
-                            <span><i class="ri-map-pin-2-fill"></i> Mumbai</span>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <h4>Domain: Web Development</h4>
-                        <div class="tags">
-                            <span>React</span>
-                            <span>Node.js</span>
-                            <span>Python</span>
-                            <span>MongoDB</span>
-                        </div>
-                    </div>
-                    <button class="request-btn">
-                        <i class="ri-user-add-line"></i>
-                        Send Request
-                    </button>
-                </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        <div class="avatar ps">PS</div>
-                        <div class="info">
-                            <h3>Priya Sharma</h3>
-                            <p>UI/UX Designer</p>
-                            <span><i class="ri-map-pin-2-fill"></i> Bangalore</span>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <h4>Domain: Design</h4>
-                        <div class="tags">
-                            <span>Figma</span>
-                            <span>Adobe XD</span>
-                            <span>User Research</span>
-                            <span>Prototyping</span>
-                        </div>
-                    </div>
-                    <button class="request-btn">
-                        <i class="ri-user-add-line"></i>
-                        Send Request
-                    </button>
-                </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        <div class="avatar rp">RP</div>
-                        <div class="info">
-                            <h3>Raj Patel</h3>
-                            <p>Data Scientist</p>
-                            <span><i class="ri-map-pin-2-fill"></i> Delhi</span>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <h4>Domain: AI/ML</h4>
-                        <div class="tags">
-                            <span>Python</span>
-                            <span>TensorFlow</span>
-                            <span>Statistics</span>
-                            <span>SQL</span>
-                        </div>
-                    </div>
-                    <button class="request-btn">
-                        <i class="ri-user-add-line"></i>
-                        Send Request
-                    </button>
-                </div>
+                <!-- User cards will be dynamically loaded here -->
             </section>
         </main>
     </div>
 
-    <div class="modal-overlay" id="paymentModal">
-        <div class="modal-content">
-            <button class="close-btn" id="closeModal">&times;</button>
-            <h3>One-Time Payment</h3>
-            <p>Unlock the Premium Resume Analyzer for a single payment of **₹100**.</p>
-            <button class="pay-btn">Pay Now & Analyze</button>
-        </div>
-    </div>
     
     <script src="main.js"></script>
 

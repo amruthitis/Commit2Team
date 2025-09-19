@@ -81,18 +81,6 @@ nav {
     background-color: rgba(168, 85, 247, 0.1);
 }
 
-.resume-btn span {
-    background-color: var(--primary-purple);
-    color: white;
-    font-size: 0.6rem;
-    padding: 0.1rem 0.4rem;
-    border-radius: 5px;
-    position: absolute;
-    top: -10px;
-    right: -10px;
-    text-transform: uppercase;
-    font-weight: 700;
-}
 
 .profile-icon i {
     font-size: 1.75rem;
@@ -111,7 +99,7 @@ nav {
 /* --- Hero Section --- */
 .hero {
     text-align: center;
-    margin-bottom: 4rem;
+    margin-bottom: 3rem;
 }
 
 .hero h2 {
@@ -123,6 +111,156 @@ nav {
 .hero p {
     font-size: 1.125rem;
     color: var(--text-secondary);
+}
+
+/* --- Filter Section --- */
+.filter-section {
+    margin-bottom: 3rem;
+}
+
+.filter-container {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 2rem;
+}
+
+.filter-container h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-primary);
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.filter-container h3 i {
+    color: var(--primary-purple);
+}
+
+.filter-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.filter-group label {
+    color: var(--text-primary);
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.filter-group select,
+.filter-group input {
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 0.75rem;
+    color: var(--text-primary);
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    transition: border-color 0.3s ease;
+}
+
+.filter-group select:focus,
+.filter-group input:focus {
+    outline: none;
+    border-color: var(--primary-purple);
+}
+
+.filter-group select option {
+    background: var(--bg-color);
+    color: var(--text-primary);
+}
+
+.filter-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.filter-btn {
+    background: var(--primary-purple);
+    border: none;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.filter-btn:hover {
+    background: #9333ea;
+    transform: translateY(-2px);
+}
+
+.filter-btn.secondary {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+.filter-btn.secondary:hover {
+    background: var(--border-color);
+    transform: translateY(-2px);
+}
+
+/* --- Result Count --- */
+.result-count {
+    text-align: center;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+}
+
+.result-count p {
+    color: var(--text-primary);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.result-count i {
+    color: var(--primary-purple);
+}
+
+/* --- No Results --- */
+.no-results {
+    text-align: center;
+    padding: 3rem;
+    color: var(--text-secondary);
+}
+
+.no-results i {
+    font-size: 3rem;
+    color: var(--primary-purple);
+    margin-bottom: 1rem;
+}
+
+.no-results h3 {
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.no-results p {
+    font-size: 0.9rem;
 }
 
 /* --- Team Cards Section --- */
@@ -249,74 +387,4 @@ nav {
     .hero p {
         font-size: 1rem;
     }
-}
-/* --- Payment Modal Styles --- */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    display: none; /* Hidden by default */
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
-
-.modal-content {
-    background-color: var(--card-bg);
-    padding: 2rem;
-    border-radius: 16px;
-    border: 1px solid var(--border-color);
-    text-align: center;
-    width: 90%;
-    max-width: 400px;
-    position: relative;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-}
-
-.modal-content h3 {
-    font-size: 1.75rem;
-    margin-bottom: 1rem;
-    color: var(--text-primary);
-}
-
-.modal-content p {
-    color: var(--text-secondary);
-    margin-bottom: 2rem;
-}
-
-.close-btn {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    background: none;
-    border: none;
-    color: var(--text-secondary);
-    font-size: 2rem;
-    cursor: pointer;
-}
-
-.pay-btn {
-    width: 100%;
-    background-color: var(--primary-purple);
-    border: none;
-    color: white;
-    padding: 0.8rem;
-    border-radius: 8px;
-    font-family: 'Poppins', sans-serif;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.pay-btn:hover {
-    background-color: #9333ea; /* A slightly darker purple */
-}
-
-/* Class to show the modal */
-.modal-active {
-    display: flex;
 }

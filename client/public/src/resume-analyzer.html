@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Analyzer - Commit2Team</title>
+    
+    <link rel="stylesheet" href="main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+    
+    <style>
+        .analyzer-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .analyzer-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .analyzer-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary-purple), #9333ea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .analyzer-header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+        
+        .upload-section {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .upload-area {
+            border: 2px dashed var(--primary-purple);
+            border-radius: 8px;
+            padding: 3rem 2rem;
+            margin: 1rem 0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .upload-area:hover {
+            background: rgba(168, 85, 247, 0.05);
+            border-color: #9333ea;
+        }
+        
+        .upload-area.dragover {
+            background: rgba(168, 85, 247, 0.1);
+            border-color: #9333ea;
+        }
+        
+        .upload-icon {
+            font-size: 3rem;
+            color: var(--primary-purple);
+            margin-bottom: 1rem;
+        }
+        
+        .upload-text {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .upload-subtext {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        .file-input {
+            display: none;
+        }
+        
+        .analyze-btn {
+            background: linear-gradient(135deg, var(--primary-purple), #9333ea);
+            border: none;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            display: none;
+        }
+        
+        .analyze-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(168, 85, 247, 0.3);
+        }
+        
+        .analyze-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .results-section {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            display: none;
+        }
+        
+        .results-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .results-icon {
+            font-size: 2rem;
+            color: var(--primary-purple);
+        }
+        
+        .score-card {
+            background: linear-gradient(135deg, var(--primary-purple), #9333ea);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .score-number {
+            font-size: 4rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+        
+        .score-label {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+        }
+        
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .analysis-card {
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+        
+        .analysis-card h3 {
+            color: var(--primary-purple);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .suggestions-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .suggestions-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .suggestions-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .suggestion-icon {
+            color: var(--primary-purple);
+        }
+        
+        .back-btn {
+            background: transparent;
+            border: 1px solid var(--primary-purple);
+            color: var(--primary-purple);
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 2rem;
+        }
+        
+        .back-btn:hover {
+            background: var(--primary-purple);
+            color: white;
+        }
+        
+        .loading-spinner {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .spinner {
+            border: 3px solid var(--border-color);
+            border-top: 3px solid var(--primary-purple);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="analyzer-container">
+        <header>
+            <div class="logo">
+                <i class="ri-code-s-slash-line"></i>
+                <h1>Commit2Team</h1>
+            </div>
+            <nav>
+                <button class="back-btn" onclick="window.location.href='main.html'">
+                    <i class="ri-arrow-left-line"></i>
+                    Back to Home
+                </button>
+            </nav>
+        </header>
+
+        <div class="analyzer-header">
+            <h1><i class="ri-medal-line"></i> Premium Resume Analyzer</h1>
+            <p>Upload your resume and get detailed insights to improve your profile</p>
+        </div>
+
+        <div class="upload-section">
+            <div class="upload-area" id="uploadArea">
+                <i class="ri-upload-cloud-2-line upload-icon"></i>
+                <div class="upload-text">Drop your resume here or click to browse</div>
+                <div class="upload-subtext">Supports PDF, DOC, DOCX files (Max 10MB)</div>
+            </div>
+            <input type="file" id="fileInput" class="file-input" accept=".pdf,.doc,.docx">
+            <button class="analyze-btn" id="analyzeBtn">
+                <i class="ri-search-line"></i>
+                Analyze Resume
+            </button>
+        </div>
+
+        <div class="loading-spinner" id="loadingSpinner">
+            <div class="spinner"></div>
+            <p>Analyzing your resume...</p>
+        </div>
+
+        <div class="results-section" id="resultsSection">
+            <div class="results-header">
+                <i class="ri-file-text-line results-icon"></i>
+                <h2>Analysis Results</h2>
+            </div>
+
+            <div class="score-card">
+                <div class="score-number" id="overallScore">85</div>
+                <div class="score-label">Overall Resume Score</div>
+            </div>
+
+            <div class="analysis-grid">
+                <div class="analysis-card">
+                    <h3><i class="ri-star-line"></i> Strengths</h3>
+                    <ul class="suggestions-list">
+                        <li><i class="ri-check-line suggestion-icon"></i> Strong technical skills mentioned</li>
+                        <li><i class="ri-check-line suggestion-icon"></i> Good project descriptions</li>
+                        <li><i class="ri-check-line suggestion-icon"></i> Relevant work experience</li>
+                        <li><i class="ri-check-line suggestion-icon"></i> Clear contact information</li>
+                    </ul>
+                </div>
+
+                <div class="analysis-card">
+                    <h3><i class="ri-alert-line"></i> Areas for Improvement</h3>
+                    <ul class="suggestions-list">
+                        <li><i class="ri-arrow-right-line suggestion-icon"></i> Add more quantifiable achievements</li>
+                        <li><i class="ri-arrow-right-line suggestion-icon"></i> Include relevant certifications</li>
+                        <li><i class="ri-arrow-right-line suggestion-icon"></i> Optimize keywords for ATS</li>
+                        <li><i class="ri-arrow-right-line suggestion-icon"></i> Add a professional summary</li>
+                    </ul>
+                </div>
+
+                <div class="analysis-card">
+                    <h3><i class="ri-lightbulb-line"></i> Recommendations</h3>
+                    <ul class="suggestions-list">
+                        <li><i class="ri-lightbulb-line suggestion-icon"></i> Tailor resume for specific job roles</li>
+                        <li><i class="ri-lightbulb-line suggestion-icon"></i> Use action verbs in descriptions</li>
+                        <li><i class="ri-lightbulb-line suggestion-icon"></i> Keep formatting consistent</li>
+                        <li><i class="ri-lightbulb-line suggestion-icon"></i> Update skills section regularly</li>
+                    </ul>
+                </div>
+
+                <div class="analysis-card">
+                    <h3><i class="ri-trophy-line"></i> ATS Optimization</h3>
+                    <ul class="suggestions-list">
+                        <li><i class="ri-check-line suggestion-icon"></i> ATS-friendly format detected</li>
+                        <li><i class="ri-check-line suggestion-icon"></i> Good keyword density</li>
+                        <li><i class="ri-arrow-right-line suggestion-icon"></i> Consider adding more industry keywords</li>
+                        <li><i class="ri-arrow-right-line suggestion-icon"></i> Optimize section headings</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const uploadArea = document.getElementById('uploadArea');
+            const fileInput = document.getElementById('fileInput');
+            const analyzeBtn = document.getElementById('analyzeBtn');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            const resultsSection = document.getElementById('resultsSection');
+            const overallScore = document.getElementById('overallScore');
+
+            let selectedFile = null;
+
+            // File upload handling
+            uploadArea.addEventListener('click', () => {
+                fileInput.click();
+            });
+
+            uploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadArea.classList.add('dragover');
+            });
+
+            uploadArea.addEventListener('dragleave', () => {
+                uploadArea.classList.remove('dragover');
+            });
+
+            uploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadArea.classList.remove('dragover');
+                const files = e.dataTransfer.files;
+                if (files.length > 0) {
+                    handleFileSelect(files[0]);
+                }
+            });
+
+            fileInput.addEventListener('change', (e) => {
+                if (e.target.files.length > 0) {
+                    handleFileSelect(e.target.files[0]);
+                }
+            });
+
+            function handleFileSelect(file) {
+                // Validate file type
+                const allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+                if (!allowedTypes.includes(file.type)) {
+                    alert('Please upload a PDF, DOC, or DOCX file.');
+                    return;
+                }
+
+                // Validate file size (10MB)
+                if (file.size > 10 * 1024 * 1024) {
+                    alert('File size should be less than 10MB.');
+                    return;
+                }
+
+                selectedFile = file;
+                uploadArea.innerHTML = `
+                    <i class="ri-file-text-line upload-icon"></i>
+                    <div class="upload-text">${file.name}</div>
+                    <div class="upload-subtext">File selected successfully</div>
+                `;
+                analyzeBtn.style.display = 'block';
+            }
+
+            // Analyze button click
+            analyzeBtn.addEventListener('click', async () => {
+                if (!selectedFile) {
+                    alert('Please select a file first.');
+                    return;
+                }
+
+                // Show loading
+                analyzeBtn.style.display = 'none';
+                loadingSpinner.style.display = 'block';
+
+                // Simulate analysis (replace with actual API call)
+                setTimeout(() => {
+                    loadingSpinner.style.display = 'none';
+                    resultsSection.style.display = 'block';
+                    
+                    // Scroll to results
+                    resultsSection.scrollIntoView({ behavior: 'smooth' });
+                }, 3000);
+            });
+        });
+    </script>
+</body>
+</html>
