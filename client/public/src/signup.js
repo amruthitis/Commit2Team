@@ -35,9 +35,10 @@ document.getElementById("signupForm").addEventListener("submit", function(e) {
   // Success
   message.textContent = "✅ Signup successful! Redirecting...";
   message.style.color = "lightgreen";
+  
 
   // Simulate redirect
   setTimeout(() => {
-    window.location.href = "basic.html"; // change to dashboard page later
+    window.location.href = "portfolio.html"; // change to dashboard page later
   }, 2000);
 });

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commit2Team - Find Your Teammates</title>
+    
+    <link rel="stylesheet" href="main.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="ri-code-s-slash-line"></i>
+                <h1>Commit2Team</h1>
+            </div>
+            <nav>
+                <button class="resume-btn" id="resumeBtn">
+                    <i class="ri-medal-line"></i>
+                    Resume Analyzer
+                    <span>Premium</span>
+                </button>
+                <a href="#" class="profile-icon">
+                    <i class="ri-user-fill"></i>
+                </a>
+            </nav>
+        </header>
+
+        <main>
+            <section class="hero">
+                <h2>Find Your Perfect Teammates</h2>
+                <p>Connect with talented individuals and build winning teams</p>
+            </section>
+
+            <section class="team-cards">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="avatar ac">AC</div>
+                        <div class="info">
+                            <h3>Alex Chen</h3>
+                            <p>Full Stack Developer</p>
+                            <span><i class="ri-map-pin-2-fill"></i> Mumbai</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h4>Domain: Web Development</h4>
+                        <div class="tags">
+                            <span>React</span>
+                            <span>Node.js</span>
+                            <span>Python</span>
+                            <span>MongoDB</span>
+                        </div>
+                    </div>
+                    <button class="request-btn">
+                        <i class="ri-user-add-line"></i>
+                        Send Request
+                    </button>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="avatar ps">PS</div>
+                        <div class="info">
+                            <h3>Priya Sharma</h3>
+                            <p>UI/UX Designer</p>
+                            <span><i class="ri-map-pin-2-fill"></i> Bangalore</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h4>Domain: Design</h4>
+                        <div class="tags">
+                            <span>Figma</span>
+                            <span>Adobe XD</span>
+                            <span>User Research</span>
+                            <span>Prototyping</span>
+                        </div>
+                    </div>
+                    <button class="request-btn">
+                        <i class="ri-user-add-line"></i>
+                        Send Request
+                    </button>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="avatar rp">RP</div>
+                        <div class="info">
+                            <h3>Raj Patel</h3>
+                            <p>Data Scientist</p>
+                            <span><i class="ri-map-pin-2-fill"></i> Delhi</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h4>Domain: AI/ML</h4>
+                        <div class="tags">
+                            <span>Python</span>
+                            <span>TensorFlow</span>
+                            <span>Statistics</span>
+                            <span>SQL</span>
+                        </div>
+                    </div>
+                    <button class="request-btn">
+                        <i class="ri-user-add-line"></i>
+                        Send Request
+                    </button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="paymentModal">
+        <div class="modal-content">
+            <button class="close-btn" id="closeModal">&times;</button>
+            <h3>One-Time Payment</h3>
+            <p>Unlock the Premium Resume Analyzer for a single payment of **₹100**.</p>
+            <button class="pay-btn">Pay Now & Analyze</button>
+        </div>
+    </div>
+    
+    <script src="main.js"></script>
+
+</body>
+</html>
