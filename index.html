@@ -53,7 +53,7 @@
     }
     button:hover { transform: scale(1.05); box-shadow: 0 4px 12px rgba(138, 43, 226, 0.6); }
 
-    #registerResult, #results, #teamResult, #scoreResult {
+    #registerResult, #results {
       margin-top: 15px; padding: 12px; border-radius: 8px; background: #222227; font-size: 0.95rem;
     }
 
@@ -65,6 +65,13 @@
     .card h3 { margin: 0 0 10px; color: #bb86fc; }
     .highlight { color: #bb86fc; font-weight: bold; }
 
+    .progress-bar-container { width: 100%; background: #333; border-radius: 8px; margin-top: 8px; }
+    .progress-bar {
+      height: 20px; border-radius: 8px; background: linear-gradient(90deg,#8a2be2,#bb86fc); width: 0%;
+      text-align: center; color: white; font-weight: bold; line-height: 20px;
+      transition: width 0.5s ease-in-out;
+    }
+
     .popup {
       display: none; position: fixed; top: 0; left: 0;
       width: 100%; height: 100%; background: rgba(0,0,0,0.7);
@@ -75,13 +82,6 @@
       text-align: center; color: #fff; max-width: 400px;
     }
     .popup-content button { margin-top: 1rem; background: linear-gradient(135deg, #8a2be2, #bb86fc); }
-
-    .progress-bar-container { width: 100%; background: #333; border-radius: 8px; margin-top: 8px; }
-    .progress-bar {
-      height: 20px; border-radius: 8px; background: linear-gradient(90deg,#8a2be2,#bb86fc); width: 0%;
-      text-align: center; color: white; font-weight: bold; line-height: 20px;
-      transition: width 0.5s ease-in-out;
-    }
   </style>
 
   <script src="https://kit.fontawesome.com/a2e0e6ad65.js" crossorigin="anonymous"></script>
@@ -121,29 +121,13 @@
     <button id="findBtn">Find Matches</button>
     <div id="results"></div>
 
-    <!-- Form Team (Moved) -->
-    <h2>Form a Team</h2>
-    <input type="text" id="teamUserIds" placeholder="User IDs, e.g. id1,id2,id3">
-    <button id="teamBtn">Form Team</button>
-    <div id="teamResult"></div>
-
-    <!-- Predict Team Score (Moved) -->
-    <h2>Predict Team Score</h2>
-    <input type="text" id="teamName" placeholder="Enter Team Name">
-    <button id="scoreBtn">Predict Score</button>
-    <div id="scoreResult">
-      <div class="progress-bar-container">
-        <div class="progress-bar" id="teamScoreBar">0%</div>
-      </div>
-    </div>
-
   </div>
 
   <!-- Popup -->
   <div id="popup" class="popup">
     <div class="popup-content">
       <h3 id="popupName"></h3>
-      <p>📞 Phone: <span id="popupPhone"></span></p>
+      <p>📞 Phone: <span id="popupPhone">8148704800</span></p>
       <button onclick="closePopup()">Close</button>
     </div>
   </div>
@@ -166,7 +150,7 @@
         `✅ Registered! User ID: ${data.user_id}, Skills: ${data.skills.join(", ")}`;
     });
 
-    // Find Teammates
+    // Find Teammates + Team Score
     document.getElementById("findBtn").addEventListener("click", async () => {
       const userId = document.getElementById("userId").value;
       const res = await fetch(`${API}/find_teammates/${userId}`);
@@ -175,14 +159,18 @@
       resultsDiv.innerHTML = "";
 
       if (data.teammates) {
-        const scoreDiv = document.createElement("div");
-        scoreDiv.className = "card";
-        scoreDiv.innerHTML = `<h3>Team Score: ${data.team_score}%</h3>
-          <div class="progress-bar-container">
-            <div class="progress-bar" style="width:${data.team_score}%;">${data.team_score}%</div>
-          </div>`;
-        resultsDiv.appendChild(scoreDiv);
+        // Show team score first
+        if (data.team_score !== undefined) {
+          const scoreDiv = document.createElement("div");
+          scoreDiv.className = "card";
+          scoreDiv.innerHTML = `<h3>Team Score: ${data.team_score}%</h3>
+            <div class="progress-bar-container">
+              <div class="progress-bar" style="width:${data.team_score}%;">${data.team_score}%</div>
+            </div>`;
+          resultsDiv.appendChild(scoreDiv);
+        }
 
+        
         data.teammates.forEach(match => {
           const card = document.createElement("div");
           card.className = "card";
@@ -201,7 +189,7 @@
       }
     });
 
-        function showPopup(name, phone) {
+    function showPopup(name, phone) {
       document.getElementById("popupName").innerText = name;
       document.getElementById("popupPhone").innerText = phone;
       document.getElementById("popup").style.display = "flex";
