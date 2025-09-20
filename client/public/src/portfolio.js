@@ -98,6 +98,7 @@ document.getElementById("portfolioForm").addEventListener("submit", async functi
       fileInfo.textContent = `✅ ${name}, your portfolio has been uploaded successfully!`;
       fileInfo.style.color = "lightgreen";
 
+      localStorage.setItem('userProfilePic', profilePicBase64);
       // Clear localStorage
       localStorage.removeItem('userEmail');
       localStorage.removeItem('userName');

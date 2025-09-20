@@ -56,16 +56,12 @@ document.getElementById("signupForm").addEventListener("submit", async function(
     const data = await response.json();
 
     if (data.success) {
-      // Store user email in localStorage for portfolio page
-      localStorage.setItem('userEmail', email);
-      localStorage.setItem('userName', name);
-      
       message.textContent = "✅ Signup successful! Redirecting...";
       message.style.color = "lightgreen";
-      
-      // Redirect to portfolio page
+
+      // Redirect to login or dashboard
       setTimeout(() => {
-        window.location.href = "portfolio.html";
+        window.location.href = "login.html"; // or main page
       }, 1500);
     } else {
       message.textContent = `❌ ${data.message}`;

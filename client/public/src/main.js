@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const teamCardsSection = document.querySelector('.team-cards');
     const applyFilterBtn = document.getElementById('applyFilter');
     const clearFilterBtn = document.getElementById('clearFilter');
+    const profileIconImg = document.getElementById('profileIconImg');
 
     // Function to generate avatar initials
     function getAvatarInitials(name) {
@@ -50,6 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="avatar ${initials.toLowerCase()}">${initials}</div>
                     <div class="info">
                         <h3>${user.name}</h3>
+                        <p class="username">@${user.username || user.name.toLowerCase().replace(/\s/g, '')}</p>
                         <p>${skillCategoryDisplay}</p>
                         <span><i class="ri-map-pin-2-fill"></i> ${user.college}</span>
                         <span><i class="ri-user-line"></i> ${genderDisplay}</span>
@@ -253,6 +255,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Load users when page loads
     loadUsers();
 
+    // Set profile picture from localStorage
+    const userProfilePic = localStorage.getItem('userProfilePic');
+    if (userProfilePic && userProfilePic !== 'undefined' && userProfilePic !== '') {
+        profileIconImg.src = userProfilePic;
+    } else {
+        profileIconImg.src = 'https://i.ibb.co/stVzWzD/default-avatar.png'; // Fallback default
+    }
+
     // Event Listeners
     resumeBtn.addEventListener('click', () => {
         // Directly redirect to resume analyzer page
@@ -266,6 +276,28 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('collegeFilter').addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
             loadFilteredUsers();
+        }
+    });
+
+    // Event delegation for "Send Request" buttons
+    teamCardsSection.addEventListener('click', (e) => {
+        const button = e.target.closest('.request-btn');
+        if (button) {
+            if (button.classList.contains('sent')) {
+                // State: Request Sent -> Send Request
+                button.innerHTML = `
+                    <i class="ri-user-add-line"></i>
+                    Send Request
+                `;
+                button.classList.remove('sent');
+            } else {
+                // State: Send Request -> Request Sent
+                button.innerHTML = `
+                    <i class="ri-check-line"></i>
+                    Request Sent
+                `;
+                button.classList.add('sent');
+            }
         }
     });
 

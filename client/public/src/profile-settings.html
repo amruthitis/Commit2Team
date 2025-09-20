@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Settings - Commit2Team</title>
+    <link rel="stylesheet" href="portfolio.css" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <h1><i class="ri-user-settings-line"></i> Profile Settings</h1>
+        <p class="lead">Update your profile details below.</p>
+
+        <form id="profileSettingsForm">
+            <input type="text" id="name" placeholder="Your Name" required />
+            <input type="text" id="username" placeholder="Username" required disabled style="cursor: not-allowed; opacity: 0.7;" />
+            <input type="text" id="year" placeholder="Year (e.g., 1st Year, 2nd Year)" required />
+            <input type="text" id="college" placeholder="College Name" required />
+            <select id="gender" required>
+                <option value="" disabled>Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+                <option value="prefer-not-to-say">Prefer not to say</option>
+            </select>
+            <select id="skillCategory" required>
+                <option value="" disabled>Select Skill Category</option>
+                <option value="frontend">Frontend Development</option>
+                <option value="backend">Backend Development</option>
+                <option value="fullstack">Full-Stack Development</option>
+                <option value="ai-ml">AI/ML</option>
+                <option value="mobile">Mobile Development</option>
+                <option value="ui-ux">UI/UX Design</option>
+            </select>
+            <p style="font-family: Verdana, Geneva, Tahoma, sans-serif;">Update your Profile Pic (Optional)</p>
+            <input type="file" id="profilepic" accept="image/jpeg, image/png">
+            
+            <button type="submit" class="btn">Update Profile</button>
+            <a href="main.html" class="btn btn-secondary" style="text-align: center; text-decoration: none; margin-top: 10px;">Back to Main</a>
+        </form>
+
+        <div id="formMessage" class="file-info"></div>
+    </div>
+
+    <script src="profile-settings.js"></script>
+</body>
+</html>
