@@ -72,6 +72,7 @@ document.getElementById("portfolioForm").addEventListener("submit", async functi
 
     // Prepare portfolio data
     const portfolioData = {
+      name,
       year,
       college,
       gender,
